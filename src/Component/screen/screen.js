@@ -16,7 +16,7 @@ function Screen(props) {
         </li>
         <li
           id="mn-album"
-          className={`menu-item ${menu.isMenuALbum ? "active" : ""}`}
+          className={`menu-item ${menu.isMenuAlbum ? "active" : ""}`}
         >
           <a>Albums</a>
         </li>

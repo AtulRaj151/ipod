@@ -7,6 +7,7 @@ import { isElement } from "react-dom/test-utils";
 class App extends React.Component {
   constructor() {
     super();
+    this.rotateGesture = this.rotateGesture.bind(this);
     this.state = {
       isMenuSongs: false,
       isMenuAlbum: false,
@@ -15,17 +16,20 @@ class App extends React.Component {
     };
   }
   selectOption = (event) => {
-    console.log(event.target);
+    // console.log(event.target);
   };
 
-  changeMenuItems = (fieldname, isActive) => {
-    this.setState({
-      ...this.state,
-      [fieldname]: isActive,
-    });
-  };
+  // changeMenuItems = (fieldname, isActive) => {
+  //   this.setState({
+  //     ...this.state,
+  //     [fieldname]: isActive,
+  //   });
+  // };
 
   rotateGesture = (event) => {
+    // console.log(this);
+    let self = this;
+    var changeMenuCounter = 0;
     let activeRegion = new ZingTouch.Region(document.getElementById("wrapper"));
     let myelement = document.getElementById("circle");
     if (event.target.id == "circle") {
@@ -34,19 +38,81 @@ class App extends React.Component {
         myelement,
         "rotate",
         function (e) {
-          console.log(e.detail);
-          let distance = e.detail.angle * e.detail.distanceFromLast;
+          // console.log(e.detail);
+          let distance = e.detail.distanceFromLast;
+          console.log(e.detail.distanceFromLast);
+          if (distance > 0) {
+            if (changeMenuCounter < 10 && changeMenuCounter >= 0) {
+              self.setState({
+                isMenuSongs: true,
+                isMenuAlbum: false,
+                isMenuPlaylist: false,
+                isMenuArtist: false,
+              });
+            } else if (changeMenuCounter < 20 && changeMenuCounter >= 10) {
+              self.setState({
+                isMenuSongs: false,
+                isMenuAlbum: true,
+                isMenuPlaylist: false,
+                isMenuArtist: false,
+              });
+            } else if (changeMenuCounter < 30 && changeMenuCounter >= 20) {
+              self.setState({
+                isMenuSongs: false,
+                isMenuAlbum: false,
+                isMenuPlaylist: true,
+                isMenuArtist: false,
+              });
+            } else if (changeMenuCounter < 40 && changeMenuCounter >= 30) {
+              self.setState({
+                isMenuSongs: false,
+                isMenuAlbum: false,
+                isMenuPlaylist: false,
+                isMenuArtist: true,
+              });
+            }
 
-          if (distance > 15) {
-            this.setState({
-              isMenuSongs: true,
-              isMenuAlbum: false,
-              isMenuPlaylist: false,
-              isMenuArtist: false,
-            });
-          } else if (distance > 30) {
-          } else if (distance > 45) {
-          } else if (distance > 90) {
+            if (changeMenuCounter > 30) {
+              changeMenuCounter = 30;
+            } else {
+              changeMenuCounter++;
+            }
+          } else {
+            if (changeMenuCounter < 10 && changeMenuCounter >= 0) {
+              self.setState({
+                isMenuSongs: true,
+                isMenuAlbum: false,
+                isMenuPlaylist: false,
+                isMenuArtist: false,
+              });
+            } else if (changeMenuCounter < 20 && changeMenuCounter >= 10) {
+              self.setState({
+                isMenuSongs: false,
+                isMenuAlbum: true,
+                isMenuPlaylist: false,
+                isMenuArtist: false,
+              });
+            } else if (changeMenuCounter < 30 && changeMenuCounter >= 20) {
+              self.setState({
+                isMenuSongs: false,
+                isMenuAlbum: false,
+                isMenuPlaylist: true,
+                isMenuArtist: false,
+              });
+            } else if (changeMenuCounter < 40 && changeMenuCounter >= 30) {
+              self.setState({
+                isMenuSongs: false,
+                isMenuAlbum: false,
+                isMenuPlaylist: false,
+                isMenuArtist: true,
+              });
+            }
+
+            if (changeMenuCounter < 0) {
+              changeMenuCounter = 0;
+            } else {
+              changeMenuCounter--;
+            }
           }
         },
         false

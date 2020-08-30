@@ -2,35 +2,35 @@ import React from "react";
 import "./screen.css";
 
 function Screen(props) {
-  console.log(props.menu);
+  // console.log(props.menu);
   const { menu } = props;
 
   return (
-    <div className="screen-container">
+    <div>
       <ol className="menu" id="menu">
         <li
           id="mn-songs"
-          className={`menu-item ${menu.isMenuSongs ? "active" : ""}`}
+          className={`menu-item ${menu.isMenuCoverflow ? "active" : ""}`}
         >
-          <a>Songs</a>
+          CoverFlow
         </li>
         <li
           id="mn-album"
-          className={`menu-item ${menu.isMenuAlbum ? "active" : ""}`}
+          className={`menu-item ${menu.isMenuMusic ? "active" : ""}`}
         >
-          <a>Albums</a>
+          Music
         </li>
         <li
           id="mn-artist"
-          className={`menu-item ${menu.isMenuPlaylist ? "active" : ""}`}
+          className={`menu-item ${menu.isMenuGames ? "active" : ""}`}
         >
-          <a>Artist</a>
+          Games
         </li>
         <li
           id="mn-playlist"
-          className={`menu-item ${menu.isMenuArtist ? "active" : ""}`}
+          className={`menu-item ${menu.isMenuSetting ? "active" : ""}`}
         >
-          <a>Playlist</a>
+          Setting
         </li>
       </ol>
     </div>

@@ -4,9 +4,11 @@ import ZingTouch from "zingtouch";
 import MainScreen from "./screen/MainScreen";
 
 class App extends React.Component {
+  // constructor
   constructor() {
     super();
     this.rotateGesture = this.rotateGesture.bind(this);
+    // state
     this.state = {
       isMenuCoverflow: false,
       isMenuMusic: false,
@@ -24,6 +26,7 @@ class App extends React.Component {
       isPause: false,
     };
   }
+  // select the main screen options and set its flag
   selectOptionMain = (event) => {
     console.log("Main");
     this.setState({
@@ -37,16 +40,20 @@ class App extends React.Component {
     }
   };
 
+  //  select the sub music menu option and set its flag
   selectOptionMusic = (event) => {
     this.setState({
       isMusicScreen: false,
     });
   };
 
+  // zingtouch library for rotating the wheel
+
   rotateGesture = (event) => {
     // console.log(this);
     let self = this;
     var changeMenuCounter = 0;
+    // binding the area
     let activeRegion = new ZingTouch.Region(document.getElementById("wrapper"));
     let myelement = document.getElementById("circle");
     if (event.target.id == "circle") {
@@ -215,6 +222,7 @@ class App extends React.Component {
       );
     }
   };
+  // enable and disable menu screen and music screen flag
   handleMenuButton = (e) => {
     if (this.state.isMusicScreen === false && this.state.isMenuMusic === true) {
       this.setState({
@@ -227,6 +235,7 @@ class App extends React.Component {
     }
   };
 
+  // handling event for play and pause button
   handlePlayPause = (e) => {
     let audio = document.getElementById("audio-player");
     console.log("audio", audio.controller);
@@ -244,6 +253,8 @@ class App extends React.Component {
       });
     }
   };
+
+  // forward seeking using buttons
   handleForwardSeek = () => {
     if (this.state.isPlay === true) {
       let audio = document.getElementById("audio-player");
@@ -251,15 +262,20 @@ class App extends React.Component {
       audio.currentTime = audio.currentTime + 1;
     }
   };
+
+  // backward seeking using backward button
   handleBackwardSeek = () => {
     if (this.state.isPlay === true) {
       let audio = document.getElementById("audio-player");
       audio.currentTime = audio.currentTime - 1;
     }
   };
+
+  //rendring the components
   render() {
     return (
       <div className="main">
+        {/* main screen which is is the first desktop layer */}
         <MainScreen
           state={this.state}
           rotateGesture={this.rotateGesture}

@@ -3,6 +3,7 @@ import React from "react";
 function MusicScreen(props) {
   const { menu } = props;
   return (
+    // main music menu components screen
     <div>
       <ol className="menu" id="menu">
         <li

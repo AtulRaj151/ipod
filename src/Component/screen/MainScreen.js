@@ -11,6 +11,7 @@ import Playlist from "./MusicScreen/Playlist";
 
 class MainScreen extends Component {
   render() {
+    // all the funnction as props
     const {
       rotateGesture,
       selectOptionMain,
@@ -20,6 +21,8 @@ class MainScreen extends Component {
       handleForwardSeek,
       handleBackwardSeek,
     } = this.props;
+
+    // destructring the props of state
     const {
       isMainScreen,
       isMenuCoverflow,
@@ -53,7 +56,7 @@ class MainScreen extends Component {
           {!isMainScreen && !isMusicScreen && isMenuArtist && <Artist />}
           {!isMainScreen && !isMusicScreen && isMenuPlaylist && <Playlist />}
         </div>
-
+        {/* button area components for event handling */}
         <div className="btn-container" id="btn-container">
           <div className="wrapper" id="wrapper">
             <div className="circle" id="circle" onClick={rotateGesture}>

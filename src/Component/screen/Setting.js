@@ -1,7 +1,7 @@
 import React from "react";
 
 function Setting(props) {
-  return <div>Setting</div>;
+  return <div className="screen-text">Setting</div>;
 }
 
 export default Setting;

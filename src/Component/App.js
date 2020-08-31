@@ -19,7 +19,9 @@ class App extends React.Component {
       isMenuPlaylist: false,
 
       isMainScreen: true,
-      isMusicScreen: true,
+      isMusicScreen: false,
+      isPlay: false,
+      isPause: false,
     };
   }
   selectOptionMain = (event) => {
@@ -27,6 +29,12 @@ class App extends React.Component {
     this.setState({
       isMainScreen: false,
     });
+
+    if (this.state.isMenuMusic === true) {
+      this.setState({
+        isMusicScreen: true,
+      });
+    }
   };
 
   selectOptionMusic = (event) => {
@@ -34,13 +42,6 @@ class App extends React.Component {
       isMusicScreen: false,
     });
   };
-
-  // changeMenuItems = (fieldname, isActive) => {
-  //   this.setState({
-  //     ...this.state,
-  //     [fieldname]: isActive,
-  //   });
-  // };
 
   rotateGesture = (event) => {
     // console.log(this);
@@ -208,21 +209,55 @@ class App extends React.Component {
                 changeMenuCounter--;
               }
             }
-          } // perform rotate gesture only if mainScreen is true
+          } // perform rotate gesture only if MusicScreen is true
         },
         false
       );
     }
   };
   handleMenuButton = (e) => {
-    if (this.state.isMainScreen === false) {
+    if (this.state.isMusicScreen === false && this.state.isMenuMusic === true) {
+      this.setState({
+        isMusicScreen: true,
+      });
+    } else {
       this.setState({
         isMainScreen: true,
       });
     }
   };
+
+  handlePlayPause = (e) => {
+    let audio = document.getElementById("audio-player");
+    console.log("audio", audio.controller);
+    if (this.state.isPlay === false) {
+      audio.play();
+      this.setState({
+        isPlay: true,
+        isPause: false,
+      });
+    } else {
+      audio.pause();
+      this.setState({
+        isPause: true,
+        isPlay: false,
+      });
+    }
+  };
+  handleForwardSeek = () => {
+    if (this.state.isPlay === true) {
+      let audio = document.getElementById("audio-player");
+
+      audio.currentTime = audio.currentTime + 1;
+    }
+  };
+  handleBackwardSeek = () => {
+    if (this.state.isPlay === true) {
+      let audio = document.getElementById("audio-player");
+      audio.currentTime = audio.currentTime - 1;
+    }
+  };
   render() {
-    const { isMainScreen } = this.state;
     return (
       <div className="main">
         <MainScreen
@@ -231,6 +266,9 @@ class App extends React.Component {
           selectOptionMain={this.selectOptionMain}
           selectOptionMusic={this.selectOptionMusic}
           handleMenuButton={this.handleMenuButton}
+          handlePlayPause={this.handlePlayPause}
+          handleForwardSeek={this.handleForwardSeek}
+          handleBackwardSeek={this.handleBackwardSeek}
         />
       </div>
     );

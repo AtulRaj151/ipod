@@ -10,4 +10,6 @@
  https://atulraj151.github.io/ipod
 
 ### Installation 
+- clone this Repo
 - npm install
+- visit localhost:3000
